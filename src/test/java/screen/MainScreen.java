@@ -6,7 +6,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 
 public class MainScreen extends Phone {
     //Кнопка "Поиск"
-    @AndroidFindBy(id = "co.fun.testgiphy:id/menu_trending_search")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@content-desc=\"Search\"]")
     private MobileElement searchButton;
     //Верхняя строка
     @AndroidFindBy(id = "co.fun.testgiphy:id/tbFragmentTrending")
@@ -38,11 +38,19 @@ public class MainScreen extends Phone {
         return titleApp.isDisplayed();
     }
 
-    private void clickOnSearch() {
+    public void clickOnSearch() {
         searchButton.click();
     }
 
-    public void login() throws Exception {
-        clickOnSearch();
+    public void scrollDown() {
+        verticalSwipeByPercentages(0.9, 0.35, 0.4);
+    }
+
+    public void clickOnImage(int index) {
+        getElementFromList(index, "android.widget.ImageView").click();
+    }
+
+    public Boolean checkImage(int index) {
+        return getElementFromList(index, "android.widget.ImageView").isDisplayed();
     }
 }

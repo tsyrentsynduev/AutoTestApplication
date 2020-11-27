@@ -6,7 +6,7 @@ import io.appium.java_client.pagefactory.AndroidFindBy;
 
 public class SearchScreen extends Phone {
     //Строка поиска
-    @AndroidFindBy(xpath = "//android.widget.EditText[@text='Search']")
+    @AndroidFindBy(id = "co.fun.testgiphy:id/etSearchToolbar")
     private MobileElement searchToolBar;
 
     //Верхнее поле
@@ -47,9 +47,22 @@ public class SearchScreen extends Phone {
 
     public void sendTextSearch(String text) throws InterruptedException {
         searchToolBar.click();
-        Thread.sleep(2000);
+        Thread.sleep(500);
         searchToolBar.setValue(text);
         driver.hideKeyboard();
+    }
+
+    public void clickOnSearch() {
+        searchToolBar.click();
+    }
+
+    public Boolean checkKeyboardOpen() {
+        try {
+            driver.hideKeyboard();
+        } catch (Exception ex) {
+        }
+        return true;
+
     }
 
     public void clearText() {
@@ -60,5 +73,15 @@ public class SearchScreen extends Phone {
         returnButton.click();
     }
 
+    public void clickOnImage(int index) {
+        getElementFromList(index, "android.widget.ImageView").click();
+    }
 
+    public Boolean checkImage(int index) {
+        return getElementFromList(index, "android.widget.ImageView").isDisplayed();
+    }
+
+    public void scrollDown() {
+        verticalSwipeByPercentages(0.9, 0.35, 0.4);
+    }
 }
